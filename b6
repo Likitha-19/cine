@@ -1,0 +1,25 @@
+const fs = require('fs');
+const path = require('path');
+
+function listFilesRecursively(directory) {
+  // Get a list of all items in the directory
+  const items = fs.readdirSync(directory);
+
+  // Iterate through each item
+  for (const item of items) {
+    const itemPath = path.join(directory, item);
+
+    // Check if the item is a file or a directory
+    if (fs.statSync(itemPath).isDirectory()) {
+      // If it's a directory, recursively list its contents
+      listFilesRecursively(itemPath);
+    } else {
+      // If it's a file, print its path
+      console.log(itemPath);
+    }
+  }
+}
+
+// Example usage:
+const directoryToScan = '/path/to/your/directory';
+listFilesRecursively(directoryToScan);
